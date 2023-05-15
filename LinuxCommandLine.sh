@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Shell - The shell is a program that takes your commands from the keyboard and sends them to the OS to perform.
+      # Terminals/Consoles are just Graphical User Interface Programs that launch a shell for me.
+      # I use the Bourne Again Shell. Nearly all Linux distributions default to the bash shell. 
+
 # Commands
     # ls -  Provides List of Contents in Current Directory.
     # pwd - Prints Working Directory Path (Relative to Home Directory).
