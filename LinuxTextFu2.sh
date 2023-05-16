@@ -23,5 +23,5 @@
 # If you wanted to get rid of stderr messages completely, you could redirect the output of the stderr to a special file called /dev/null , and it will discard any input.
     # $ ls /fake/directory 2> /dev/null
 
-echo "This script goes over Standard Error and the various ways that you can error messages in relation to stream input and output, as well as overwritting or appending the output to a file and 
+echo "This script goes over Standard Error and the various ways that you can change and manipulate error messages in relation to stream input and output, as well as overwriting or appending the output to a file and 
 getting rid of them entirely."
