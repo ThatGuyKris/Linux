@@ -20,6 +20,17 @@
 
 # Packets - The data that is transmitted through networks. They travel to and from hosts. 
 - An example would be the packets that travel between two Nintendo consoles when playing Smash Ultimate. 
+- Packets consist of a header and payload. 
+
+# Header - Part of a packet. Contains inforamtion about where the packet is going and where it came from. 
+
+# Payload - The actual data that is being transferred. 
+
+# SYN (Synchronize) - Sent by host (usually web browser) as part 1 of the 3-way handshake.
+
+# SYN-ACK (Synchronize-Acknowledgement) - Sent by server to host as part 2 of the 3-way handshake.
+
+# ACK (Acknowledgement) - Sent by host to server as part 3 of the 3-way handshake.  
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -31,7 +42,7 @@
 
 # TCP/IP Model 
 - This model is what the internet is based off of. It is the literal implementation of networking. 
-- It uses two protocols, the Transmission Control Protocol (TCP) and IP Addresses. 
+- It uses two protocols, the Transmission Control Protocol (TCP) and Internet Protocol (IP). 
 - These protocols work together to specify how data is gathered, addressed, transmitted, and routed through a network.
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -43,6 +54,7 @@
 - This layer uses Hypertext Transfer Protocol (HTTP) and SMTP (Simple Mail Transfer Protocol)
     - HTTP is used for webpages on the internet. 
     - SMTP is used for electronic mail (email) transmission.
+    - Other protocols include FTP, TFTP, and SMB/CIFS.
 
 # Transport Layer 
 - This layer determines how data will be transmitted, includes checking the correct ports, integrity of the data, and basically delivering our packets.
@@ -57,5 +69,115 @@
     - Internet Protocol is a protocol that helps route packets from one machine to another. 
     - Internet Control Message Protocol helps tell us what is going on, such as error messages and debugging information. 
 
-# Link Layer 
+# Data Link Layer 
 - This layer goes into how to send data across a physical piece of hardware, like data travelling through Ethernet, fiber, etc. 
+- Defines the protocol to establish and terminate a connection between two physically connected devices. 
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Network Addressing
+
+
+
+# Mac Addresses - A unique identifier used as a hardware address. 
+- For access to the internet, your machine needs to have a device called a network interface card. This network adapter has its own hardware 
+    that's used to identify your machine. A MAC address for an ethernet device looks something like this >> 00:C4:B5:45:B2:43. 
+
+# IP Addresses - Used to identify a device on a network. They are hardware independent and can vary in syntax depending on whether or not you are using IPv4 or IPv6. 
+- Anytime a system is connected to the internet, it should have an IP Address. They can change if your network changes, and are unique to the entire internet (not always).
+
+# Hostnames - Another way to identify a device is through hostname. They take your IP address and allow you to tie that address to a human readable name.
+- An example is my Hostname for Desktop being TGK-Desktop. Instead of remembering 192.168.1.1 or something, you can remember myhost.com. 
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Application Layer Example ##
+
+Let's say I wanted to send an email to Patty. We'll go through each of the TCP/IP layers to see this in action.
+
+We start off in the application layer. When we send our email through our email client, the application layer will encapsulate this data. 
+The application layer talks to the transport layer through a specified port and through this port it sends its data. We want to send an email through
+through the application layer protocol SMTP (Simple Mail Transfer Protocol). The data is sent through our transport protocol (SMTP) which opens a connection
+to the port 25 (since 25 is used for SMTP), so we get this data sent through this port and that data is sent to the Transport layer to be encapsulated into segments. 
+
+## Transport Layer Example ##
+
+The transport layer helps us transfer our data in a way that networks can read it. At layer 3, you establish a path from device to device, and Layer 4 determines
+how the data will be transmitted. TCP and UDP live here. SMTP is a TCP/IP protocol used in sending and receiving an email. TCP uses ports to send data to and from hosts.
+An application opens up a connection from one port on it's host to another port on a remote host. To establish the connection, we use the TCP handshake. 
+
+# TCP's 3 Way Handshake
+- The client (connecting process) sends a SYN segment to the server to request a connection. 
+- Server sends the client a SYN-ACK segment to acknowledge the client's connection request.
+- Client sends an ACK to the server, showing that it acknowledges the server's conenction requesst. 
+
+Once the connection is established, data can be exchanged over the TCP connection. The data is sent over in different segments and are tracked with
+TCP sequence numbers so that they can be arranged in the correct order when they are delivered. For the email example, the transport layer attaches the 
+destination port (25) to the source port of the source host. 
+
+## Network Layer ##
+
+Determines the routing of our packets from our source host to a destination host. Fortunately in our example, our packet is only traveling within 
+the same network, but the Internet is made up of many networks. These smaller networks that make up the internet are known as subnets. All subnets connect in some way, 
+which is why we are able to get to www.google.com even though it is on its own network. 
+
+For our email in the network layer, it receives the segment coming from the transport layer and encapsulates this segment in an IP packet, then 
+attaches the IP address of the source host and the IP address of the destination host to the packet header. So, at this point, our packet has inforamtion
+about where it is going and where it came from. Now it sends our packet to the physical hardware layer. 
+
+## Data Link Layer ## 
+
+At the bottom of the TCP/IP model (or OSI Layer model) sits the Data Link Layer. This is the hardware specific layer. 
+In the link layer, our packet is encapsulated again into something called a frame. The frame header attaches the source and destination MAC addresses of our hosts, 
+checksums and packet separators so that the receiver can tell when a packet ends. Since we are on the same network in our example, 
+the packet won't have to travel too far. First, the link layer attaches my source MAC address to the frame header, but it needs to know Patty's MAC address as well,
+since it is the destination. 
+
+# ARP (Address Resolution Protocol) - Finds the MAC address associated with an IP address. 
+- ARP is used within the same network. 
+- If Patty was not on the same network, we would use a routing system to determine the next router that would receive the packet, and once we were on the same network then we 
+    could use ARP.
+- Once we are on the same network, systems first use the ARP look-up table that stores information about what IP addresses are associated with what MAC address. 
+    If the value is not there, then ARP is used. Then the system will send a broadcast message to the network using the ARP protocol to find out which host has IP 10.10.1.4. 
+    A broadcast message is a special message that is sent to all hosts on a network (aptly named for sending a broadcast). 
+    Any machine with the requested IP address will reply with an ARP packet containing the IP address and the MAC address.
+
+Now that we have all the neccessary data we need, IP address and MAC address, our link layer forwards this frame through our network interface card, out to the
+next device and finds Patty's network. And there it is, a simple packet traversal down the TCP/IP layer. 
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Packet Traversal Overall Example ##
+
+1. Pete sends Patty an email: this data gets sent to the transport layer.
+2. The transport layer encapsulates the data into a TCP or UDP header to form a segment, the segment attaches the destination and source TCP or UDP port, then the 
+    segment is sent to the network layer.
+3. The network layer encapsulates the TCP segment inside an IP packet, it attaches the source and destination IP address. Then routes the packet to the link layer.
+4. The packet then reaches Pete's physical hardware and gets encapsulated in a frame. The source and destination MAC address get added to the frame.
+5. Patty's receives this data frame through her physical layer and checks each frame for data integrity, then de-encapsulates the frame contents and sends the IP packet 
+    to the network layer.
+6. The network layer reads the packet to find the source and destination IP that was previously attached. It checks if its IP is the same as the destination IP, which it is! 
+    It de-encapsulates the packet and sends the segment to the transport layer.
+7. The transport layer de-encapsulates the segments, checks the TCP or UDP port numbers and makes a connection to the application layer based on those port numbers.
+8. The application layer receives the data from the transport layer on the port that was specified and presents it to Patty in the form of the final email message
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+## DHCP (Dynamic Host Configuration Protocol) ##
+
+DHCP (Dynamic Host Configuration Protocol) - Assigns IP addresses, subnet masks, and gateways to our machine. 
+
+Example: Let's say you have a cellphone, and you want to get a cell phone nhumber to start talking to people. You have to call up your phone carrier and they 
+will give you a number. As long as you pay your bills, you can keep using your phone. DHCP is the phone carrier in this case, it gives you an IP address so that
+you can talk to other IP addresses. You are also leased an IP address, these last for a certain period of time, when will get renewed depending on how you have 
+your lease settings. 
+
+DHCP is great for many reasons, it allows a network administrator to not worry about assigning IP addresses, and it also prevents them from setting 
+up duplicate IP addresses. Every physical network should have it's own DHCP server so that a host can request an IP address. In a regular home setting, the router
+usually acts as the DHCP server. 
+
+The way DHCP gets all your dynamic host information is:
+1. DHCP DISCOVER: This message is broadcasted to search for a DHCP server. 
+2. DHCP OFFER - The DHCP server in the network replies with an offer message. The offer contains a packet with DHCP lease time, subnet mask, IP address. 
+3. DHCP REQUEST - The client sends out another broadcast to let all DHCP servers know which offer it accepted.
+4. DHCP ACK - Acknowledgement is sent by the server. 
