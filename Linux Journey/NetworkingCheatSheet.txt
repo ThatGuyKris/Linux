@@ -164,8 +164,7 @@ next device and finds Patty's network. And there it is, a simple packet traversa
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## DHCP (Dynamic Host Configuration Protocol) ##
-
-DHCP (Dynamic Host Configuration Protocol) - Assigns IP addresses, subnet masks, and gateways to our machine. 
+    - DHCP (Dynamic Host Configuration Protocol) - Assigns IP addresses, subnet masks, and gateways to our machine. 
 
 Example: Let's say you have a cellphone, and you want to get a cell phone nhumber to start talking to people. You have to call up your phone carrier and they 
 will give you a number. As long as you pay your bills, you can keep using your phone. DHCP is the phone carrier in this case, it gives you an IP address so that
@@ -181,3 +180,6 @@ The way DHCP gets all your dynamic host information is:
 2. DHCP OFFER - The DHCP server in the network replies with an offer message. The offer contains a packet with DHCP lease time, subnet mask, IP address. 
 3. DHCP REQUEST - The client sends out another broadcast to let all DHCP servers know which offer it accepted.
 4. DHCP ACK - Acknowledgement is sent by the server. 
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
