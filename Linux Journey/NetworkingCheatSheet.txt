@@ -1,0 +1,61 @@
+## Networking Basics ##
+
+# ISP - Internet Service Provider
+- This is the company you pay to get internet at your house. 
+
+# Router - The router allows for every host on your network to conenct to the internet.
+- Most modern routers allow you to connect via wireless or an Ethernet cable. 
+
+# WAN - Wide Area Network 
+- This is known as the network that encompasses everything between your router and a wider network such as the internet
+
+# WLAN - Wireless Local Area Network
+- This is the network between your router and any wireless devices you may have such as laptops. 
+
+# LAN - Local Area Network
+- This is the network between your router and any wired devices you might have like Desktop PC's.
+
+# Hosts - Each machine on a network is known as a host. 
+- An example would be a laptop on a WLAN network. 
+
+# Packets - The data that is transmitted through networks. They travel to and from hosts. 
+- An example would be the packets that travel between two Nintendo consoles when playing Smash Ultimate. 
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+## OSI Model + TCP/IP Model ##
+
+# OSI Layer Model - Open Systems Interconnection Model
+- This is a theoretical model of networking. This is a VERY important concept to have a solid understanding of. 
+- This model shows us how a packet travels through a network in seven different layers!
+
+# TCP/IP Model 
+- This model is what the internet is based off of. It is the literal implementation of networking. 
+- It uses two protocols, the Transmission Control Protocol (TCP) and IP Addresses. 
+- These protocols work together to specify how data is gathered, addressed, transmitted, and routed through a network.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+## OSI Layers ##
+
+# Application Layer
+- This layer determines how your computer's programs interface with the transport layer services to view the data that gets sent or received.
+- This layer uses Hypertext Transfer Protocol (HTTP) and SMTP (Simple Mail Transfer Protocol)
+    - HTTP is used for webpages on the internet. 
+    - SMTP is used for electronic mail (email) transmission.
+
+# Transport Layer 
+- This layer determines how data will be transmitted, includes checking the correct ports, integrity of the data, and basically delivering our packets.
+- The two main methods of sending and receiving data are using Transmission Control Protocol (TCP) and User Datagram Protocol (UDP).
+- They work together with IP (Internet Protocol) to direct packets from one machine to another. 
+    - TCP is commonly known as reliable data delivery.
+    - UDP is commonly known as unreliable data delivery.      
+
+# Network Layer
+- This layer specifies how to move packets between hosts and across networks. 
+- This layer uses IP (Internet Protocol) and ICMP (Internet Control Message Protocol)
+    - Internet Protocol is a protocol that helps route packets from one machine to another. 
+    - Internet Control Message Protocol helps tell us what is going on, such as error messages and debugging information. 
+
+# Link Layer 
+- This layer goes into how to send data across a physical piece of hardware, like data travelling through Ethernet, fiber, etc. 
