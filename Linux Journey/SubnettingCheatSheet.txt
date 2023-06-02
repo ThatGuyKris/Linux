@@ -1,2 +1,90 @@
 ## Subnetting ##
 
+# IPv4 # 
+
+IPv4 - Unique address that network hosts can be found at.
+- An example of an IPv4 address is 204.23.124.23
+- The address above actually contains two parts. The network portion tells us what network it's own and the host portion that tells us which host on that network it is. 
+- An IP address is separated into octets by the periods. So, an IPv4 address has four octets. Since an octet is four bits and a byte is equal to eight bits, we can refer
+    to an IPv4 address as having 4 bytes. 
+- When dealing with subnetting, we frequently deal with bits.
+
+IMPORTANT: You can see your IP address by typing ifconfig -a command (works in Fedora).
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Subnets #
+
+Subnet - A group of hosts with IP addresses that are similiar in a certain way. 
+- These hosts usually are in a proximate location from each other and you can easily send data to and from the hosts on the same subnet. 
+- Think of it as sending mail in the same zip code. It's a lot easier than sending mail to a different state. 
+
+For example, all hosts with an IP address that starts with 123.45.67. would be on the same subnet. (Next part is an example and is not actually my stuff.) My host has
+an IP of 123.45.67.8 and Patty's has an IP of 123.45.67.9. The common numbers are my network prefix, and the 8 and 9 are our hosts, therefore my network is the same
+as Patty's network. A subnet is divided into a network prefix, such as 123.45.67.0 and a subnet mask.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Subnet Masks # 
+
+Subnet Masks - Determine what part of your IP address is the network portion and what part is the host portion.
+
+# Explanation
+
+A typical subnet mask can look like: 255.255.255.0. 
+- The 255 portion is actually our mask. 
+- An octet ranges from 0 to 255. The reason we have 255 there is because a bit is denoted by a 0 or a 1 in binary form. and 255 is essentially 11111111.
+- So, 192.168.1.1 is 11000000.10101000.00000001.00000001
+    - For reference, 128, 64, 32, 16, 8, 4, 2, 1 
+                     1    1   0   0   0  0  0  0 = 192
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Subnet Math #
+
+Let's say I have an IP address of 192.168.1.0 and a subnet mask of 255.255.255.0, now let's line up these numbers in binary form.
+
+192.168.1.165  = 11000000.10101000.00000001.10100101
+255.255.255.0  = 11111111.11111111.11111111.00000000
+
+The IP address is masked by our subnet mask, when you see a 1, it is masked and we pretend like we don't see it. So the only possible hosts we can have are from the 00000000 region.
+Remember, 11111111 in binary form equals 255, we also account 0 as a host number, so there are a total of 256 possible options. However, there are actually on 254 options since we
+have to account for the broadcast address and the subnet address. 
+
+So, we know that we can have hosts with IP addresses ranging from 192.168.1.1 - 192.168.1.254
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# CIDR # 
+
+CIDR is used to represent a subnet mask in a more compact way. You may see subnets notated in CIDR notation, where a subnet such as 10.42.3.0/255.255.255.0 is 
+written as 10.42.3.0/24 which just means it includes both the subnet prefix and the subnet mask. 
+
+An IP address consists of 4 bytes or 32 bits, and CIDR indicates the amount of bits used as the network prefix. So, 123.12.24.0/23 means that the first 23 bits are used. 
+- To find how many hosts this is, subtract the total number of bits an ip address can have from the CIDR address (23), so that leaves 9 bits, and 2^9=512. Take away
+    two addresses because of the subnet address and broadcast address, so we have 510 usable hosts. 
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# NAT # 
+
+NAT stands for network address translation. NAT makes a device like our router act as an intermediary between internet and private network. So, only a single unique IP address
+is required to represent an entire group of computers. 
+
+Think of NAT is like a receptionist in a large office, if someone wants to contact you, they only know the number to the whole office, the receptionist would then have to look 
+for your extension number and forward the call to you.
+
+Example of how it works:
+- A simple case would look like this:
+    1. Patty wants to connect to www.google.com, so her machine sends this request through the router.
+    2. The router takes that request and opens its own connection to google.com, then it sends Patty's request once it makes a connection. 
+    3. The router is the intermediary between Patty and www.google.com. Google doesn't know about Patty instead all it can see is the router. 
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# IPv6 # 
+
+IPv6 was created to allow us to connect more hosts to the internet. It comes with more IP improvements, however, it's adoption is quite slow. It isn't meant to replace IPv4,
+but instead meant to compliment it. A typical IPv6 address looks like the following:
+- 2dde:1235:1256:3:200:f8ed:fe23:59cf
+
