@@ -1,4 +1,0 @@
-apple.txt
-grapes.txt
-stdin-2.sh
-stdout-2.sh
